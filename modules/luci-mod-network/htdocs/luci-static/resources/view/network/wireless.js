@@ -1325,18 +1325,24 @@ return view.extend({
 				}
 
 
+				o = ss.taboption('encryption', form.Flag, 'ppsk', _('Enable private psk key (PPSK)'), _('STAs can have a private and independent key mapped to their MAC and the shared key won`t work. If the mac is not in the radius user list, then they can optionally connect if a default entry is configured. It requires radius server to work.'));
+				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk2', 'psk-mixed'] });
+
 				o = ss.taboption('encryption', form.Value, 'auth_server', _('Radius-Authentication-Server'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
+				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.datatype = 'host(0)';
 
 				o = ss.taboption('encryption', form.Value, 'auth_port', _('Radius-Authentication-Port'), _('Default %d').format(1812));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
+				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.datatype = 'port';
 
 				o = ss.taboption('encryption', form.Value, 'auth_secret', _('Radius-Authentication-Secret'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
+				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.password = true;
 
@@ -1373,7 +1379,7 @@ return view.extend({
 
 				o = ss.taboption('encryption', form.Value, '_wpa_key', _('Key'));
 				o.depends('encryption', 'psk');
-				o.depends('encryption', 'psk2');
+				o.depends({ encryption: 'psk2', ppsk: '0' });
 				o.depends('encryption', 'psk+psk2');
 				o.depends('encryption', 'psk-mixed');
 				o.depends('encryption', 'sae');
