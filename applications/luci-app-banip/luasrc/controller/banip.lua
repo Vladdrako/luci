@@ -14,23 +14,23 @@ function index()
 		return
 	end
 
-	local e = entry({"admin", "services", "banip"}, firstchild(), _("banIP"), 40)
+	local e = entry({"admin", "network", "banip"}, firstchild(), _("banIP"), 40)
 	e.dependent = false
 	e.acl_depends = { "luci-app-banip" }
 
-	entry({"admin", "services", "banip", "tab_from_cbi"}, cbi("banip/overview_tab", {hideresetbtn=true, hidesavebtn=true}), _("Overview"), 10).leaf = true
-	entry({"admin", "services", "banip", "ipset"}, template("banip/ipsetview"), _("IPSet-Lookup"), 20).leaf = true
-	entry({"admin", "services", "banip", "ripe"}, template("banip/ripeview"), _("RIPE-Lookup"), 30).leaf = true
-	entry({"admin", "services", "banip", "log"}, template("banip/logview"), _("View Logfile"), 40).leaf = true
-	entry({"admin", "services", "banip", "advanced"}, firstchild(), _("Advanced"), 100)
-	entry({"admin", "services", "banip", "advanced", "blacklist"}, form("banip/blacklist_tab"), _("Edit Blacklist"), 110).leaf = true
-	entry({"admin", "services", "banip", "advanced", "whitelist"}, form("banip/whitelist_tab"), _("Edit Whitelist"), 120).leaf = true
-	entry({"admin", "services", "banip", "advanced", "configuration"}, form("banip/configuration_tab"), _("Edit Configuration"), 130).leaf = true
-	entry({"admin", "services", "banip", "ipsetview"}, call("ipset_view"), nil).leaf = true
-	entry({"admin", "services", "banip", "ripeview"}, call("ripe_view"), nil).leaf = true
-	entry({"admin", "services", "banip", "logview"}, call("log_view"), nil).leaf = true
-	entry({"admin", "services", "banip", "status"}, call("status_update"), nil).leaf = true
-	entry({"admin", "services", "banip", "action"}, call("ban_action"), nil).leaf = true
+	entry({"admin", "network", "banip", "tab_from_cbi"}, cbi("banip/overview_tab", {hideresetbtn=true, hidesavebtn=true}), _("Overview"), 10).leaf = true
+	entry({"admin", "network", "banip", "ipset"}, template("banip/ipsetview"), _("IPSet-Lookup"), 20).leaf = true
+	entry({"admin", "network", "banip", "ripe"}, template("banip/ripeview"), _("RIPE-Lookup"), 30).leaf = true
+	entry({"admin", "network", "banip", "log"}, template("banip/logview"), _("View Logfile"), 40).leaf = true
+	entry({"admin", "network", "banip", "advanced"}, firstchild(), _("Advanced"), 100)
+	entry({"admin", "network", "banip", "advanced", "blacklist"}, form("banip/blacklist_tab"), _("Edit Blacklist"), 110).leaf = true
+	entry({"admin", "network", "banip", "advanced", "whitelist"}, form("banip/whitelist_tab"), _("Edit Whitelist"), 120).leaf = true
+	entry({"admin", "network", "banip", "advanced", "configuration"}, form("banip/configuration_tab"), _("Edit Configuration"), 130).leaf = true
+	entry({"admin", "network", "banip", "ipsetview"}, call("ipset_view"), nil).leaf = true
+	entry({"admin", "network", "banip", "ripeview"}, call("ripe_view"), nil).leaf = true
+	entry({"admin", "network", "banip", "logview"}, call("log_view"), nil).leaf = true
+	entry({"admin", "network", "banip", "status"}, call("status_update"), nil).leaf = true
+	entry({"admin", "network", "banip", "action"}, call("ban_action"), nil).leaf = true
 end
 
 function ban_action(name)
