@@ -198,3 +198,8 @@ config statistics 'collectd_thermal'
 config statistics 'collectd_uptime'
 	option enable '0'
 
+config statistics 'collectd_snmp6'
+	option enable '0'
+	option Interfaces 'br-lan'
+	option IgnoreSelected '0'
+
