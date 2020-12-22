@@ -3,7 +3,7 @@
 #
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-12-18 05:29+0000\n"
+"PO-Revision-Date: 2020-12-21 13:28+0000\n"
 "Last-Translator: akibou <jinwenxin1997@icloud.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "openwrt/luciapplicationsaria2/zh_Hant/>\n"
@@ -85,7 +85,7 @@ msgstr ""
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:28
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/log.js:58
 msgid "Collecting data..."
-msgstr "收集資料中..."
+msgstr "收集資料中……"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:218
 msgid "Config file directory"
