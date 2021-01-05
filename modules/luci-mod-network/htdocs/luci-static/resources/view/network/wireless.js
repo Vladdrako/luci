@@ -66,17 +66,17 @@ function render_signal_badge(signalPercent, signalValue, noiseValue, wrap, mode)
 	else if (signalPercent > -1) {
 		switch (mode) {
 			case 'ap':
-				title = _('No client associated');
+				title = _('No Clients Associated');
 				break;
 
 			case 'sta':
 			case 'adhoc':
 			case 'mesh':
-				title = _('Not associated');
+				title = _('Not Associated');
 				break;
 
 			default:
-				title = _('No RX signal');
+				title = _('No RX Signal');
 		}
 
 		if (noiseValue != null && noiseValue != 0) {
@@ -89,7 +89,7 @@ function render_signal_badge(signalPercent, signalValue, noiseValue, wrap, mode)
 	}
 	else {
 		value = E('em', {}, E('small', {}, [ _('disabled') ]));
-		title = _('Interface is disabled');
+		title = _('Interface Disabled');
 	}
 
 	return E('div', {
@@ -221,7 +221,7 @@ function radio_restart(id, ev) {
 	btn.disabled = true;
 
 	dsc.setAttribute('restart', '');
-	dom.content(dsc, E('em', _('Device is restarting…')));
+	dom.content(dsc, E('em', _('Radio Restarting...')));
 }
 
 function network_updown(id, map, ev) {
@@ -520,7 +520,7 @@ var CBIWifiTxPowerValue = form.ListValue.extend({
 			this.powerval = this.wifiNetwork ? this.wifiNetwork.getTXPower() : null;
 			this.poweroff = this.wifiNetwork ? this.wifiNetwork.getTXPowerOffset() : null;
 
-			this.value('', _('driver default'));
+			this.value('', _('Driver Default'));
 
 			for (var i = 0; i < pwrlist.length; i++)
 				this.value(pwrlist[i].dbm, '%d dBm (%d mW)'.format(pwrlist[i].dbm, pwrlist[i].mw));
@@ -534,9 +534,9 @@ var CBIWifiTxPowerValue = form.ListValue.extend({
 		    widget.firstElementChild.style.width = 'auto';
 
 		dom.append(widget, E('span', [
-			' - ', _('Current power'), ': ',
-			E('span', [ this.powerval != null ? '%d dBm'.format(this.powerval) : E('em', _('unknown')) ]),
-			this.poweroff ? ' + %d dB offset = %s dBm'.format(this.poweroff, this.powerval != null ? this.powerval + this.poweroff : '?') : ''
+			' - ', _('Current Power'), ': ',
+			E('span', [ this.powerval != null ? '%d dBm'.format(this.powerval) : E('em', _('Unknown')) ]),
+			this.poweroff ? ' + %d dB Offset = %s dBm'.format(this.poweroff, this.powerval != null ? this.powerval + this.poweroff : '?') : ''
 		]));
 
 		return widget;
@@ -554,7 +554,7 @@ var CBIWifiCountryValue = form.Value.extend({
 	load: function(section_id) {
 		return this.callCountryList(section_id).then(L.bind(function(countrylist) {
 			if (Array.isArray(countrylist) && countrylist.length > 0) {
-				this.value('', _('driver default'));
+				this.value('', _('Driver Default'));
 
 				for (var i = 0; i < countrylist.length; i++)
 					this.value(countrylist[i].iso3166, '%s - %s'.format(countrylist[i].iso3166, countrylist[i].country));
@@ -600,7 +600,7 @@ return view.extend({
 			}
 
 			if (stat.hasAttribute('restart'))
-				dom.content(stat, E('em', _('Device is restarting…')));
+				dom.content(stat, E('em', _('Radio Restarting...')));
 
 			btns[0].disabled = isReadonlyView || busy;
 			btns[1].disabled = (isReadonlyView && radioDev) || busy;
@@ -794,7 +794,7 @@ return view.extend({
 
 		s.modaltitle = function(section_id) {
 			var radioNet = this.wifis.filter(function(w) { return w.getName() == section_id})[0];
-			return radioNet ? radioNet.getI18n() : _('Edit wireless network');
+			return radioNet ? radioNet.getI18n() : _('Edit Wireless Network');
 		};
 
 		s.lookupRadioOrNetwork = function(section_id) {
@@ -816,17 +816,17 @@ return view.extend({
 				btns = [
 					E('button', {
 						'class': 'cbi-button cbi-button-neutral',
-						'title': _('Restart radio interface'),
+						'title': _('Restart Radio Interface'),
 						'click': ui.createHandlerFn(this, radio_restart, section_id)
 					}, _('Restart')),
 					E('button', {
 						'class': 'cbi-button cbi-button-action important',
-						'title': _('Find and join network'),
+						'title': _('Find And Join Network'),
 						'click': ui.createHandlerFn(this, 'handleScan', inst)
 					}, _('Scan')),
 					E('button', {
 						'class': 'cbi-button cbi-button-add',
-						'title': _('Provide new network'),
+						'title': _('Add New Network'),
 						'click': ui.createHandlerFn(this, 'handleAdd', inst)
 					}, _('Add'))
 				];
@@ -838,17 +838,17 @@ return view.extend({
 				btns = [
 					E('button', {
 						'class': 'cbi-button cbi-button-neutral enable-disable',
-						'title': isDisabled ? _('Enable this network') : _('Disable this network'),
+						'title': isDisabled ? _('Enable Network') : _('Disable Network'),
 						'click': ui.createHandlerFn(this, network_updown, section_id, this.map)
 					}, isDisabled ? _('Enable') : _('Disable')),
 					E('button', {
 						'class': 'cbi-button cbi-button-action important',
-						'title': _('Edit this network'),
+						'title': _('Edit Network'),
 						'click': ui.createHandlerFn(this, 'renderMoreOptionsModal', section_id)
 					}, _('Edit')),
 					E('button', {
 						'class': 'cbi-button cbi-button-negative remove',
-						'title': _('Delete this network'),
+						'title': _('Remove Network'),
 						'click': ui.createHandlerFn(this, 'handleRemove', section_id)
 					}, _('Remove'))
 				];
@@ -878,46 +878,46 @@ return view.extend({
 				}, this, radioNet);
 				o.write = function() {};
 
-				o = ss.taboption('general', form.Button, '_toggle', isDisabled ? _('Wireless network is disabled') : _('Wireless network is enabled'));
+				o = ss.taboption('general', form.Button, '_toggle', isDisabled ? _('Wireless Network: Disabled') : _('Wireless Network: Enabled'));
 				o.inputstyle = isDisabled ? 'apply' : 'reset';
 				o.inputtitle = isDisabled ? _('Enable') : _('Disable');
 				o.onclick = ui.createHandlerFn(s, network_updown, s.section, s.map);
 
-				o = ss.taboption('general', CBIWifiFrequencyValue, '_freq', '<br />' + _('Operating frequency'));
+				o = ss.taboption('general', CBIWifiFrequencyValue, '_freq', '<br />' + _('Operating Frequency'));
 				o.ucisection = s.section;
 
 				if (hwtype == 'mac80211') {
-					o = ss.taboption('general', form.Flag, 'legacy_rates', _('Allow legacy 802.11b rates'), _('Legacy or badly behaving devices may require legacy 802.11b rates to interoperate. Airtime efficiency may be significantly reduced where these are used. It is recommended to not allow 802.11b rates where possible.'));
+					o = ss.taboption('general', form.Flag, 'legacy_rates', _('Allow Legacy 802.11b Rates'), _('Legacy or badly behaving clients may require legacy 802.11b rates to interoperate. Airtime efficiency may be significantly reduced where these are used. It is recommended to not allow 802.11b rates where possible.'));
 					o.depends({'_freq': '11g', '!contains': true});
 
-					o = ss.taboption('general', CBIWifiTxPowerValue, 'txpower', _('Maximum transmit power'), _('Specifies the maximum transmit power the wireless radio may use. Depending on regulatory requirements and wireless usage, the actual transmit power may be reduced by the driver.'));
+					o = ss.taboption('general', CBIWifiTxPowerValue, 'txpower', _('Maximum Transmit Power'), _('Maximum transmit power that the wireless radio may use. Depending on regulatory requirements and wireless usage, the actual transmit power may be reduced by the driver.'));
 					o.wifiNetwork = radioNet;
 
-					o = ss.taboption('advanced', CBIWifiCountryValue, 'country', _('Country Code'));
+					o = ss.taboption('advanced', CBIWifiCountryValue, 'country', _('Country Code'), _('Used to help determine the regulatory requirements that apply to the wireless radio.'));
 					o.wifiNetwork = radioNet;
  
-					o = ss.taboption('advanced', form.ListValue, 'cell_density', _('Coverage cell density'), _('Configures data rates based on the coverage cell density. Normal configures basic rates to 6, 12, 24 Mbps if legacy 802.11b rates are not used else to 5.5, 11 Mbps. High configures basic rates to 12, 24 Mbps if legacy 802.11b rates are not used else to the 11 Mbps rate. Very High configures 24 Mbps as the basic rate. Supported rates lower than the minimum basic rate are not offered.'));
+					o = ss.taboption('advanced', form.ListValue, 'cell_density', _('Coverage Cell Density'), _('Configure data rates based on the coverage cell density.<br />Normal configures basic rates to 6, 12, 24 Mbps if legacy 802.11b rates are not used else to 5.5, 11 Mbps.<br />High configures basic rates to 12, 24 Mbps if legacy 802.11b rates are not used else to the 11 Mbps rate.<br />Very High configures 24 Mbps as the basic rate if legacy 802.11b rates are not used else to the 11 Mbps rate.<br />Supported rates lower than the minimum basic rate are not offered.'));
 					o.value('0', _('Disabled'));
 					o.value('1', _('Normal'));
 					o.value('2', _('High'));
 					o.value('3', _('Very High'));
 
-					o = ss.taboption('advanced', form.Value, 'distance', _('Distance Optimization'), _('Distance to farthest network member in meters.'));
+					o = ss.taboption('advanced', form.Value, 'distance', _('Distance Optimization'), _('Distance to the farthest network member in meters.'));
 					o.datatype = 'or(range(0,114750),"auto")';
 					o.placeholder = 'auto';
 
-					o = ss.taboption('advanced', form.Value, 'frag', _('Fragmentation Threshold'));
+					o = ss.taboption('advanced', form.Value, 'frag', _('Fragmentation Threshold'), _('Maximum length of a frame in bytes after which fragmentation will occur.'));
 					o.datatype = 'min(256)';
 					o.placeholder = _('off');
 
-					o = ss.taboption('advanced', form.Value, 'rts', _('RTS/CTS Threshold'));
+					o = ss.taboption('advanced', form.Value, 'rts', _('RTS/CTS Threshold'), _('Packet size threshold requiring a <abbr title="Request To Send">RTS</abbr>/<abbr title="Clear To Send">CTS</abbr> handshake to first complete before transmission can take place.'));
 					o.datatype = 'uinteger';
-					o.placeholder = _('off');
 
-					o = ss.taboption('advanced', form.Flag, 'noscan', _('Force 40MHz mode'), _('Always use 40MHz channels even if the secondary channel overlaps. Using this option does not comply with IEEE 802.11n-2009!'));
+					o.placeholder = _('off');
+					o = ss.taboption('advanced', form.Flag, 'noscan', _('Force 40 MHz Mode'), _('Use 40 MHz channels even where a secondary channel overlaps.<br />This option is not standards compliant and enabling it may cause harmful interference.'));
 					o.rmempty = true;
 
-					o = ss.taboption('advanced', form.Value, 'beacon_int', _('Beacon Interval'));
+					o = ss.taboption('advanced', form.Value, 'beacon_int', _('Beacon Interval'), _('Time interval between the transmission of beacon frames in milliseconds.'));
 					o.datatype = 'range(15,65535)';
 					o.placeholder = 100;
 					o.rmempty = true;
@@ -930,7 +930,7 @@ return view.extend({
 				ss = o.subsection;
 				ss.tab('general', _('General Setup'));
 				ss.tab('encryption', _('Wireless Security'));
-				ss.tab('macfilter', _('MAC-Filter'));
+				ss.tab('macfilter', _('MAC Address Filter'));
 				ss.tab('advanced', _('Advanced Settings'));
 
 				o = ss.taboption('general', form.ListValue, 'mode', _('Mode'));
@@ -941,18 +941,18 @@ return view.extend({
 				o = ss.taboption('general', form.Value, 'mesh_id', _('Mesh Id'));
 				o.depends('mode', 'mesh');
 
-				o = ss.taboption('advanced', form.Flag, 'mesh_fwding', _('Forward mesh peer traffic'));
+				o = ss.taboption('advanced', form.Flag, 'mesh_fwding', _('Forward Mesh Peer Traffic'));
 				o.rmempty = false;
 				o.default = '1';
 				o.depends('mode', 'mesh');
 
-				o = ss.taboption('advanced', form.Value, 'mesh_rssi_threshold', _('RSSI threshold for joining'), _('0 = not using RSSI threshold, 1 = do not change driver default'));
+				o = ss.taboption('advanced', form.Value, 'mesh_rssi_threshold', _('RSSI Joining Threshold'), _('0 specifies to not use an <abbr title="Received Signal Strength Indicator">RSSI</abbr> threshold for joining, 1 specifies to use the driver default.'));
 				o.rmempty = false;
 				o.default = '0';
 				o.datatype = 'range(-255,1)';
 				o.depends('mode', 'mesh');
 
-				o = ss.taboption('general', form.Value, 'ssid', _('<abbr title="Extended Service Set Identifier">ESSID</abbr>'));
+				o = ss.taboption('general', form.Value, 'ssid', _('SSID'), _('Name of the wireless network, known as the <abbr title="Service Set Identifier">SSID</abbr> or the <abbr title="Extended Service Set Identifier">ESSID</abbr>.'));
 				o.datatype = 'maxlength(32)';
 				o.depends('mode', 'ap');
 				o.depends('mode', 'sta');
@@ -963,10 +963,10 @@ return view.extend({
 				o.depends('mode', 'sta-wds');
 				o.depends('mode', 'wds');
 
-				o = ss.taboption('general', form.Value, 'bssid', _('<abbr title="Basic Service Set Identifier">BSSID</abbr>'));
+				o = ss.taboption('general', form.Value, 'bssid', _('BSSID'), _('MAC address of the <abbr title="Basic Service Set">BSS</abbr>, known as the <abbr title="Basic Service Set Identifier">BSSID</abbr>.'));
 				o.datatype = 'macaddr';
 
-				o = ss.taboption('general', widgets.NetworkSelect, 'network', _('Network'), _('Choose the network(s) you want to attach to this wireless interface or fill out the <em>custom</em> field to define a new network.'));
+				o = ss.taboption('general', widgets.NetworkSelect, 'network', _('Network'), _('Choose the networks to be attached to this wireless interface or fill out the <em>custom</em> field to define a new network.'));
 				o.rmempty = true;
 				o.multiple = true;
 				o.novirtual = true;
@@ -1018,14 +1018,14 @@ return view.extend({
 					bssid.depends('mode', 'sta');
 					bssid.depends('mode', 'sta-wds');
 
-					o = ss.taboption('macfilter', form.ListValue, 'macfilter', _('MAC-Address Filter'));
+					o = ss.taboption('macfilter', form.ListValue, 'macfilter', _('MAC Address Filter'));
 					o.depends('mode', 'ap');
 					o.depends('mode', 'ap-wds');
-					o.value('', _('disable'));
-					o.value('allow', _('Allow listed only'));
-					o.value('deny', _('Allow all except listed'));
+					o.value('', _('Disable'));
+					o.value('allow', _('Allow Listed, Deny Others'));
+					o.value('deny', _('Deny Listed, Allow Others'));
 
-					o = ss.taboption('macfilter', form.DynamicList, 'maclist', _('MAC-List'));
+					o = ss.taboption('macfilter', form.DynamicList, 'maclist', _('MAC Address List'));
 					o.datatype = 'macaddr';
 					o.depends('macfilter', 'allow');
 					o.depends('macfilter', 'deny');
@@ -1073,56 +1073,54 @@ return view.extend({
 						return mode;
 					};
 
-					o = ss.taboption('general', form.Flag, 'hidden', _('Hide <abbr title="Extended Service Set Identifier">ESSID</abbr>'), _('Where the ESSID is hidden, clients may fail to roam and airtime efficiency may be significantly reduced.'));
+					o = ss.taboption('general', form.Flag, 'hidden', _('Hide SSID'), _('Where the <abbr title="Service Set Identifier">SSID</abbr> is hidden, clients may fail to roam and airtime efficiency may be reduced.'));
 					o.depends('mode', 'ap');
 					o.depends('mode', 'ap-wds');
 
-					o = ss.taboption('general', form.Flag, 'wmm', _('WMM Mode'), _('Where Wi-Fi Multimedia (WMM) Mode QoS is disabled, clients may be limited to 802.11a/802.11g rates.'));
+					o = ss.taboption('general', form.Flag, 'wmm', _('WMM Mode'), _('Where <abbr title="Wi-Fi Multimedia">WMM</abbr> Mode QoS is disabled, clients may be limited to 802.11a/802.11g rates.'));
 					o.depends('mode', 'ap');
 					o.depends('mode', 'ap-wds');
 					o.default = o.enabled;
 
-					o = ss.taboption('advanced', form.Flag, 'isolate', _('Isolate Clients'), _('Prevents client-to-client communication'));
+					o = ss.taboption('advanced', form.Flag, 'isolate', _('Isolate Clients'), _('Prevent client-to-client communication.'));
 					o.depends('mode', 'ap');
 					o.depends('mode', 'ap-wds');
 
-					o = ss.taboption('advanced', form.Value, 'ifname', _('Interface name'), _('Override default interface name'));
+					o = ss.taboption('advanced', form.Value, 'ifname', _('Interface Name'), _('Override the default interface name.'));
 					o.optional = true;
 					o.placeholder = radioNet.getIfname();
 					if (/^radio\d+\.network/.test(o.placeholder))
 						o.placeholder = '';
 
-					o = ss.taboption('advanced', form.Flag, 'short_preamble', _('Short Preamble'));
+					o = ss.taboption('advanced', form.Flag, 'short_preamble', _('Allow Short Preamble'), _('Allow a short preamble to be used.'));
 					o.default = o.enabled;
 
-					o = ss.taboption('advanced', form.Value, 'dtim_period', _('DTIM Interval'), _('Delivery Traffic Indication Message Interval'));
+					o = ss.taboption('advanced', form.Value, 'dtim_period', _('DTIM Period'), _('Number of beacon periods between a <abbr title="Delivery Traffic Indication Message">DTIM</abbr> being included.'));
 					o.optional = true;
 					o.placeholder = 2;
 					o.datatype = 'range(1,255)';
 
-					o = ss.taboption('advanced', form.Value, 'wpa_group_rekey', _('Time interval for rekeying GTK'), _('sec'));
+					o = ss.taboption('advanced', form.Value, 'wpa_group_rekey', _('GTK Rekeying Interval'), _('Time interval for rekeying the <abbr title="Group Transient Key">GTK</abbr> in seconds.'));
 					o.optional    = true;
 					o.placeholder = 600;
 					o.datatype    = 'uinteger';
 
-					o = ss.taboption('advanced', form.Flag , 'skip_inactivity_poll', _('Disable Inactivity Polling'));
+					o = ss.taboption('advanced', form.Value, 'max_inactivity', _('Client Inactivity Limit'), _('Inactivity limit for a client after which it will be polled or else disconnected in seconds.'));
 					o.optional    = true;
 					o.datatype    = 'uinteger';
 
-					o = ss.taboption('advanced', form.Value, 'max_inactivity', _('Station inactivity limit'), _('sec'));
+					o = ss.taboption('advanced', form.Flag , 'skip_inactivity_poll', _('Skip Inactivity Polling'), _('Skip inactivity polling and just disconnect clients. Idle clients still in range are more likely to be disconnected.'));
 					o.optional    = true;
-					o.placeholder = 300;
 					o.datatype    = 'uinteger';
 
-					o = ss.taboption('advanced', form.Value, 'max_listen_interval', _('Maximum allowed Listen Interval'));
+					o = ss.taboption('advanced', form.Value, 'max_listen_interval', _('Maximum Listen Interval'), _('Number of beacon periods that clients are allowed to remain asleep for.'));
 					o.optional    = true;
 					o.placeholder = 65535;
 					o.datatype    = 'uinteger';
 
-					o = ss.taboption('advanced', form.Flag, 'disassoc_low_ack', _('Disassociate On Low Acknowledgement'), _('Allow AP mode to disconnect STAs based on low ACK condition'));
+					o = ss.taboption('advanced', form.Flag, 'disassoc_low_ack', _('Disassociate On Low ACK'), _('Disassociate clients with an excessive rate of transmission failures or other indications of connection loss.'));
 					o.default = o.enabled;
 				}
-
 
 				encr = o = ss.taboption('encryption', form.ListValue, 'encryption', _('Encryption'));
 				o.depends('mode', 'ap');
@@ -1164,10 +1162,10 @@ return view.extend({
 				o.depends('encryption', 'psk2');
 				o.depends('encryption', 'wpa-mixed');
 				o.depends('encryption', 'psk-mixed');
-				o.value('auto', _('auto'));
-				o.value('ccmp', _('Force CCMP (AES)'));
-				o.value('tkip', _('Force TKIP'));
-				o.value('tkip+ccmp', _('Force TKIP and CCMP (AES)'));
+				o.value('auto', _('Auto'));
+				o.value('ccmp', _('CCMP (AES)'));
+				o.value('tkip', _('TKIP (RC4)'));
+				o.value('tkip+ccmp', _('TKIP (RC4) and CCMP (AES)'));
 				o.write = ss.children.filter(function(o) { return o.option == 'encryption' })[0].write;
 
 				o.cfgvalue = function(section_id) {
@@ -1322,9 +1320,9 @@ return view.extend({
 				crypto_modes.sort(function(a, b) { return b[2] - a[2] });
 
 				for (var i = 0; i < crypto_modes.length; i++) {
-					var security_level = (crypto_modes[i][2] >= 30) ? _('strong security')
-						: (crypto_modes[i][2] >= 20) ? _('medium security')
-							: (crypto_modes[i][2] >= 10) ? _('weak security') : _('open network');
+					var security_level = (crypto_modes[i][2] >= 30) ? _('Higher Security')
+						: (crypto_modes[i][2] >= 20) ? _('Moderate Security')
+							: (crypto_modes[i][2] >= 10) ? _('Lower Security') : _('Open Network');
 
 					encr.value(crypto_modes[i][0], '%s (%s)'.format(crypto_modes[i][1], security_level));
 				}
@@ -1333,56 +1331,56 @@ return view.extend({
 				o = ss.taboption('encryption', form.Flag, 'ppsk', _('Enable private psk key (PPSK)'), _('STAs can have a private and independent key mapped to their MAC and the shared key won`t work. If the mac is not in the radius user list, then they can optionally connect if a default entry is configured. It requires radius server to work.'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk2', 'psk-mixed'] });
 
-				o = ss.taboption('encryption', form.Value, 'auth_server', _('Radius-Authentication-Server'));
+				o = ss.taboption('encryption', form.Value, 'auth_server', _('RADIUS Authentication-Server'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.datatype = 'host(0)';
 
-				o = ss.taboption('encryption', form.Value, 'auth_port', _('Radius-Authentication-Port'), _('Default %d').format(1812));
+				o = ss.taboption('encryption', form.Value, 'auth_port', _('RADIUS Authentication-Port'), _('Default %d').format(1812));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.datatype = 'port';
 
-				o = ss.taboption('encryption', form.Value, 'auth_secret', _('Radius-Authentication-Secret'));
+				o = ss.taboption('encryption', form.Value, 'auth_secret', _('RADIUS Authentication-Secret'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.depends({ ppsk: '1' });
 				o.rmempty = true;
 				o.password = true;
 
-				o = ss.taboption('encryption', form.Value, 'acct_server', _('Radius-Accounting-Server'));
+				o = ss.taboption('encryption', form.Value, 'acct_server', _('RADIUS Accounting-Server'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.datatype = 'host(0)';
 
-				o = ss.taboption('encryption', form.Value, 'acct_port', _('Radius-Accounting-Port'), _('Default %d').format(1813));
+				o = ss.taboption('encryption', form.Value, 'acct_port', _('RADIUS Accounting-Port'), _('Default %d').format(1813));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.datatype = 'port';
 
-				o = ss.taboption('encryption', form.Value, 'acct_secret', _('Radius-Accounting-Secret'));
+				o = ss.taboption('encryption', form.Value, 'acct_secret', _('RADIUS Accounting-Secret'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.password = true;
 
-				o = ss.taboption('encryption', form.Value, 'dae_client', _('DAE-Client'));
+				o = ss.taboption('encryption', form.Value, 'dae_client', _('DAE Client'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.datatype = 'host(0)';
 
-				o = ss.taboption('encryption', form.Value, 'dae_port', _('DAE-Port'), _('Default %d').format(3799));
+				o = ss.taboption('encryption', form.Value, 'dae_port', _('DAE Port'), _('Default %d').format(3799));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.datatype = 'port';
 
-				o = ss.taboption('encryption', form.Value, 'dae_secret', _('DAE-Secret'));
+				o = ss.taboption('encryption', form.Value, 'dae_secret', _('DAE Secret'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 				o.rmempty = true;
 				o.password = true;
 
 
-				o = ss.taboption('encryption', form.Value, '_wpa_key', _('Key'));
+				o = ss.taboption('encryption', form.Value, '_wpa_key', _('Passphrase'), _('Passphrase used to encrypt the wireless network, also known as the <abbr title="Pre-Shared Key">PSK</abbr>.'));
 				o.depends('encryption', 'psk');
 				o.depends({ encryption: 'psk2', ppsk: '0' });
 				o.depends('encryption', 'psk+psk2');
@@ -1444,62 +1442,60 @@ return view.extend({
 					// Probe 802.11r support (and EAP support as a proxy for Openwrt)
 					var has_80211r = L.hasSystemFeature('hostapd', '11r') || L.hasSystemFeature('hostapd', 'eap');
 
-					o = ss.taboption('encryption', form.Flag, 'ieee80211r', _('802.11r Fast Transition'), _('Enables fast roaming among access points that belong to the same Mobility Domain'));
-					add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
+					o = ss.taboption('encryption', form.Flag, 'ieee80211r', _('Fast Transition Roaming'), _('Enable 802.11r <abbr title="Fast Transition">FT</abbr> roaming between APs that are part of the same mobility domain.'));
 					if (has_80211r)
-						add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk', 'psk2', 'psk-mixed', 'sae', 'sae-mixed'] });
+						add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk2', 'psk-mixed', 'sae', 'sae-mixed', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Value, 'nasid', _('NAS ID'), _('Used for two different purposes: RADIUS NAS ID and 802.11r R0KH-ID. Not needed with normal WPA(2)-PSK.'));
-					add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
+					o = ss.taboption('encryption', form.Value, 'nasid', _('NAS-Identifier'), _('NAS-Identifier is used for two different purposes, RADIUS and the 802.11r R0 key holder ID.<br />This is not needed with WPA-PSK/WPA2-PSK/WPA3-SAE.'));
 					o.depends({ ieee80211r: '1' });
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Value, 'mobility_domain', _('Mobility Domain'), _('4-character hexadecimal ID'));
+					o = ss.taboption('encryption', form.Value, 'mobility_domain', _('Mobility Domain Identifier'), _('4-character hexadecimal identifier identifying the group of APs that offer <abbr title="Fast Transition">FT</abbr> in an <abbr title="Extended Service Set">ESS</abbr>.'));
 					o.depends({ ieee80211r: '1' });
 					o.placeholder = '4f57';
 					o.datatype = 'and(hexstring,length(4))';
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Value, 'reassociation_deadline', _('Reassociation Deadline'), _('time units (TUs / 1.024 ms) [1000-65535]'));
+					o = ss.taboption('encryption', form.Value, 'reassociation_deadline', _('Reassociation Deadline'), _('Reassociation deadline in time units (TUs / 1.024 ms) [1000-65535].'));
 					o.depends({ ieee80211r: '1' });
 					o.placeholder = '1000';
 					o.datatype = 'range(1000,65535)';
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.ListValue, 'ft_over_ds', _('FT protocol'));
+					o = ss.taboption('encryption', form.ListValue, 'ft_over_ds', _('Fast Transition Method'), _('Method used to perform 802.11r <abbr title="Fast Transition">FT</abbr> roaming between APs.<br />FT Over-The-Air is typically faster than FT Over-The-<abbr title="Distribution System">DS</abbr>.'));
 					o.depends({ ieee80211r: '1' });
-					o.value('1', _('FT over DS'));
-					o.value('0', _('FT over the Air'));
+					o.value('0', _('FT Over-The-Air'));
+					o.value('1', _('FT Over-The-DS'));
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Flag, 'ft_psk_generate_local', _('Generate PMK locally'), _('When using a PSK, the PMK can be automatically generated. When enabled, the R0/R1 key options below are not applied. Disable this to use the R0 and R1 key options.'));
+					o = ss.taboption('encryption', form.Flag, 'ft_psk_generate_local', _('Generate PMK Locally'), _('When using a <abbr title="Pre-Shared Key">PSK</abbr>, the <abbr title="Pairwise Master Key">PMK</abbr> can be generated automatically. When enabled, the R0/R1 key options below are not applied. Disable this to use the R0 and R1 key options.'));
 					o.depends({ ieee80211r: '1' });
 					o.default = o.enabled;
 					o.rmempty = false;
 
-					o = ss.taboption('encryption', form.Value, 'r0_key_lifetime', _('R0 Key Lifetime'), _('minutes'));
+					o = ss.taboption('encryption', form.Value, 'r0_key_lifetime', _('R0 Key Lifetime'), _('R0 key lifetime in minutes.'));
 					o.depends({ ieee80211r: '1' });
 					o.placeholder = '10000';
 					o.datatype = 'uinteger';
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Value, 'r1_key_holder', _('R1 Key Holder'), _('6-octet identifier as a hex string - no colons'));
+					o = ss.taboption('encryption', form.Value, 'r1_key_holder', _('R1 Key Holder'), _('12-character hexadecimal identifier identifying the R1 key holder. This must not contain colons.'));
 					o.depends({ ieee80211r: '1' });
 					o.placeholder = '00004f577274';
 					o.datatype = 'and(hexstring,length(12))';
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.Flag, 'pmk_r1_push', _('PMK R1 Push'));
+					o = ss.taboption('encryption', form.Flag, 'pmk_r1_push', _('PMK R1 Push'), _('Enable PMK-R1 push to all R1 key holders from the R0 key holder.'));
 					o.depends({ ieee80211r: '1' });
 					o.placeholder = '0';
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.DynamicList, 'r0kh', _('External R0 Key Holder List'), _('List of R0KHs in the same Mobility Domain. <br />Format: MAC-address,NAS-Identifier,128-bit key as hex string. <br />This list is used to map R0KH-ID (NAS Identifier) to a destination MAC address when requesting PMK-R1 key from the R0KH that the STA used during the Initial Mobility Domain Association.'));
+					o = ss.taboption('encryption', form.DynamicList, 'r0kh', _('External R0 Key Holder List'), _('List of R0 key holders in the mobility domain.<br />Format: MAC-Address,NAS-Identifier,128-bit key in hexadecimal<br />This list is used to map the R0 key holder ID (NAS-Identifier) to a destination MAC address when requesting a PMK-R1 key from the R0 key holder that the client used during its initial mobility domain association.'));
 					o.depends({ ieee80211r: '1' });
 					o.rmempty = true;
 
-					o = ss.taboption('encryption', form.DynamicList, 'r1kh', _('External R1 Key Holder List'), _ ('List of R1KHs in the same Mobility Domain. <br />Format: MAC-address,R1KH-ID as 6 octets with colons,128-bit key as hex string. <br />This list is used to map R1KH-ID to a destination MAC address when sending PMK-R1 key from the R0KH. This is also the list of authorized R1KHs in the MD that can request PMK-R1 keys.'));
+					o = ss.taboption('encryption', form.DynamicList, 'r1kh', _('External R1 Key Holder List'), _ ('List of R1 key holders in the mobility domain.<br />Format: MAC-Address,R1KH-ID as 6 octets with colons,128-bit key in hexadecimal<br />This list is used to map the R1 key holder ID to a destination MAC address when sending PMK-R1 key from the R0 key holder. This is also the list of authorized R1 keyholders in the mobility domain that can request PMK-R1 keys.'));
 					o.depends({ ieee80211r: '1' });
 					o.rmempty = true;
 					// End of 802.11r options
@@ -1511,7 +1507,7 @@ return view.extend({
 					o.value('fast', 'FAST');
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
-					o = ss.taboption('encryption', form.Flag, 'ca_cert_usesystem', _('Use system certificates'), _("Validate server certificate using built-in system CA bundle,<br />requires the \"ca-bundle\" package"));
+					o = ss.taboption('encryption', form.Flag, 'ca_cert_usesystem', _('Use system certificates'), _("Validate the server certificate using the built-in system CA bundle.<br />This requires the \"ca-bundle\" package"));
 					o.enabled = '1';
 					o.disabled = '0';
 					o.default = o.disabled;
@@ -1523,28 +1519,28 @@ return view.extend({
 						return true;
 					};
 
-					o = ss.taboption('encryption', form.FileUpload, 'ca_cert', _('Path to CA-Certificate'));
+					o = ss.taboption('encryption', form.FileUpload, 'ca_cert', _('CA Certificate Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], ca_cert_usesystem: ['0'] });
 
-					o = ss.taboption('encryption', form.Value, 'subject_match', _('Certificate constraint (Subject)'), _("Certificate constraint substring - e.g. /CN=wifi.mycompany.com<br />See `logread -f` during handshake for actual values"));
+					o = ss.taboption('encryption', form.Value, 'subject_match', _('Certificate Constraint (Subject)'), _("Certificate constraint substring - e.g. /CN=wifi.example.com<br />See `logread -f` during handshake for actual values."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'altsubject_match', _('Certificate constraint (SAN)'), _("Certificate constraint(s) via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.mycompany.com"));
+					o = ss.taboption('encryption', form.DynamicList, 'altsubject_match', _('Certificate Constraint (SAN)'), _("Certificate constraints via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.example.com"));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'domain_match', _('Certificate constraint (Domain)'), _("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (exact match)"));
+					o = ss.taboption('encryption', form.DynamicList, 'domain_match', _('Certificate Constraint (Domain)'), _("Certificate constraints against DNS SAN values, if available,<br />or Subject CN (exact match)."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'domain_suffix_match', _('Certificate constraint (Wildcard)'), _("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (suffix match)"));
+					o = ss.taboption('encryption', form.DynamicList, 'domain_suffix_match', _('Certificate Constraint (Wildcard)'), _("Certificate constraints against DNS SAN values, if available,<br />or Subject CN (suffix match)."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
-					o = ss.taboption('encryption', form.FileUpload, 'client_cert', _('Path to Client-Certificate'));
+					o = ss.taboption('encryption', form.FileUpload, 'client_cert', _('Client Certificate Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], eap_type: ['tls'] });
 
-					o = ss.taboption('encryption', form.FileUpload, 'priv_key', _('Path to Private Key'));
+					o = ss.taboption('encryption', form.FileUpload, 'priv_key', _('Private Key Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], eap_type: ['tls'] });
 
-					o = ss.taboption('encryption', form.Value, 'priv_key_pwd', _('Password of Private Key'));
+					o = ss.taboption('encryption', form.Value, 'priv_key_pwd', _('Private Key Password'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], eap_type: ['tls'] });
 					o.password = true;
 
@@ -1569,7 +1565,7 @@ return view.extend({
 						return true;
 					};
 
-					o = ss.taboption('encryption', form.Flag, 'ca_cert2_usesystem', _('Use system certificates for inner-tunnel'), _("Validate server certificate using built-in system CA bundle,<br />requires the \"ca-bundle\" package"));
+					o = ss.taboption('encryption', form.Flag, 'ca_cert2_usesystem', _('Use System Certificates For Inner-Tunnel'), _("Validate server certificate using the built-in system CA bundle,<br />requires the \"ca-bundle\" package"));
 					o.enabled = '1';
 					o.disabled = '0';
 					o.default = o.disabled;
@@ -1581,28 +1577,28 @@ return view.extend({
 						return true;
 					};
 
-					o = ss.taboption('encryption', form.FileUpload, 'ca_cert2', _('Path to inner CA-Certificate'));
+					o = ss.taboption('encryption', form.FileUpload, 'ca_cert2', _('Inner CA Certificate Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'], ca_cert2_usesystem: ['0'] });
 
-					o = ss.taboption('encryption', form.Value, 'subject_match2', _('Inner certificate constraint (Subject)'), _("Certificate constraint substring - e.g. /CN=wifi.mycompany.com<br />See `logread -f` during handshake for actual values"));
+					o = ss.taboption('encryption', form.Value, 'subject_match2', _('Inner Certificate Constraint (Subject)'), _("Certificate constraint substring - e.g. /CN=wifi.example.com<br />See `logread -f` during handshake for actual values."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'altsubject_match2', _('Inner certificate constraint (SAN)'), _("Certificate constraint(s) via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.mycompany.com"));
+					o = ss.taboption('encryption', form.DynamicList, 'altsubject_match2', _('Inner Certificate Constraint (SAN)'), _("Certificate constraints via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.example.com"));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'domain_match2', _('Inner certificate constraint (Domain)'), _("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (exact match)"));
+					o = ss.taboption('encryption', form.DynamicList, 'domain_match2', _('Inner Certificate Constraint (Domain)'), _("Certificate constraints against DNS SAN values, if available,<br />or Subject CN (exact match)."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.DynamicList, 'domain_suffix_match2', _('Inner certificate constraint (Wildcard)'), _("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (suffix match)"));
+					o = ss.taboption('encryption', form.DynamicList, 'domain_suffix_match2', _('Inner Certificate Constraint (Wildcard)'), _("Certificate constraints against DNS SAN values, if available,<br />or Subject CN (suffix match)."));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.FileUpload, 'client_cert2', _('Path to inner Client-Certificate'));
+					o = ss.taboption('encryption', form.FileUpload, 'client_cert2', _('Inner Client-Certificate Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.FileUpload, 'priv_key2', _('Path to inner Private Key'));
+					o = ss.taboption('encryption', form.FileUpload, 'priv_key2', _('Inner Private Key Path'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 
-					o = ss.taboption('encryption', form.Value, 'priv_key2_pwd', _('Password of inner Private Key'));
+					o = ss.taboption('encryption', form.Value, 'priv_key2_pwd', _('Inner Private Key Password'));
 					add_dependency_permutations(o, { mode: ['sta', 'sta-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed'], auth: ['EAP-TLS'] });
 					o.password = true;
 
@@ -1619,7 +1615,7 @@ return view.extend({
 
 					if (hwtype == 'mac80211') {
 						// ieee802.11w options
-						o = ss.taboption('encryption', form.ListValue, 'ieee80211w', _('802.11w Management Frame Protection'), _("Note: Some wireless drivers do not fully support 802.11w. E.g. mwlwifi may have problems"));
+						o = ss.taboption('encryption', form.ListValue, 'ieee80211w', _('Management Frame Protection'), _('Enable 802.11w <abbr title="Management Frame Protection">MFP</abbr>/<abbr title="Protected Management Frames">PMF</abbr>. Some wireless drivers do not fully support this. e.g. mwlwifi may malfunction.'));
 						o.value('', _('Disabled'));
 						o.value('1', _('Optional'));
 						o.value('2', _('Required'));
@@ -1631,25 +1627,25 @@ return view.extend({
 							'':  []
 						};
 
-						o = ss.taboption('encryption', form.Value, 'ieee80211w_max_timeout', _('802.11w maximum timeout'), _('802.11w Association SA Query maximum timeout'));
+						o = ss.taboption('encryption', form.Value, 'ieee80211w_max_timeout', _('SA Maximum Timeout'), _('802.11w association <abbr title="Security Association">SA</abbr> query maximum timeout in milliseconds.'));
 						o.depends('ieee80211w', '1');
 						o.depends('ieee80211w', '2');
 						o.datatype = 'uinteger';
 						o.placeholder = '1000';
 						o.rmempty = true;
 
-						o = ss.taboption('encryption', form.Value, 'ieee80211w_retry_timeout', _('802.11w retry timeout'), _('802.11w Association SA Query retry timeout'));
+						o = ss.taboption('encryption', form.Value, 'ieee80211w_retry_timeout', _('SA Retry Timeout'), _('802.11w association <abbr title="Security Association">SA</abbr> query retry timeout in milliseconds.'));
 						o.depends('ieee80211w', '1');
 						o.depends('ieee80211w', '2');
 						o.datatype = 'uinteger';
 						o.placeholder = '201';
 						o.rmempty = true;
 
-						o = ss.taboption('encryption', form.Flag, 'wpa_disable_eapol_key_retries', _('Enable key reinstallation (KRACK) countermeasures'), _('Complicates key reinstallation attacks on the client side by disabling retransmission of EAPOL-Key frames that are used to install keys. This workaround might cause interoperability issues and reduced robustness of key negotiation especially in environments with heavy traffic load.'));
+						o = ss.taboption('encryption', form.Flag, 'wpa_disable_eapol_key_retries', _('Disable EAPOL-Key Retries'), _('Apply a countermeasure for <abbr title="Key Reinstallation Attacks">KRACK</abbr> in clients by disabling the retransmission of EAPOL-Key frames that are used to install keys. This may cause interoperability issues and reduce the robustness of key negotiation, especially in environments with heavy traffic loads.'));
 						add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk2', 'psk-mixed', 'sae', 'sae-mixed', 'wpa2', 'wpa3', 'wpa3-mixed'] });
 
 						if (L.hasSystemFeature('hostapd', 'wps') && L.hasSystemFeature('wpasupplicant')) {
-							o = ss.taboption('encryption', form.Flag, 'wps_pushbutton', _('Enable WPS pushbutton, requires WPA(2)-PSK/WPA3-SAE'))
+							o = ss.taboption('encryption', form.Flag, 'wps_pushbutton', _('Enable WPS Push Button'), _('Enabling <abbr title="Wi-Fi Protected Setup">WPS</abbr> Push Button requires WPA-PSK/WPA2-PSK/WPA3-SAE.'))
 							o.enabled = '1';
 							o.disabled = '0';
 							o.default = o.disabled;
@@ -1931,19 +1927,19 @@ return view.extend({
 			};
 
 			if (bss.ssid == null) {
-				name = s2.option(form.Value, 'ssid', _('Network SSID'), _('The correct SSID must be manually specified when joining a hidden wireless network'));
+				name = s2.option(form.Value, 'ssid', _('Network SSID'), _('The correct SSID must be specified manually when joining a hidden wireless network.'));
 				name.rmempty = false;
 			};
 
-			replace = s2.option(form.Flag, 'replace', _('Replace wireless configuration'), _('Check this option to delete the existing networks from this radio.'));
+			replace = s2.option(form.Flag, 'replace', _('Replace Wireless Configuration'), _('Enable this option to delete the existing networks from this radio.'));
 
-			name = s2.option(form.Value, 'name', _('Name of the new network'), _('The allowed characters are: <code>A-Z</code>, <code>a-z</code>, <code>0-9</code> and <code>_</code>'));
+			name = s2.option(form.Value, 'name', _('New Network Name'), _('The allowed characters are: <code>A-Z</code>, <code>a-z</code>, <code>0-9</code> and <code>_</code>.'));
 			name.datatype = 'uciname';
 			name.default = 'wwan';
 			name.rmempty = false;
 			name.validate = function(section_id, value) {
 				if (nameUsed(value))
-					return _('The network name is already used');
+					return _('The network name is already used.');
 
 				return true;
 			};
@@ -1952,18 +1948,18 @@ return view.extend({
 				name.default = 'wwan%d'.format(i);
 
 			if (is_wep || is_psk) {
-				passphrase = s2.option(form.Value, 'password', is_wep ? _('WEP passphrase') : _('WPA passphrase'), _('Specify the secret encryption key here.'));
+				passphrase = s2.option(form.Value, 'password', is_wep ? _('WEP Passphrase') : _('WPA Passphrase'), _('Passphrase used to encrypt the wireless network.'));
 				passphrase.datatype = is_wep ? 'wepkey' : 'wpakey';
 				passphrase.password = true;
 				passphrase.rmempty = false;
 			}
 
 			if (bss.ssid != null) {
-				bssid = s2.option(form.Flag, 'bssid', _('Lock to BSSID'), _('Instead of joining any network with a matching SSID, only connect to the BSSID <code>%h</code>.').format(bss.bssid));
+				bssid = s2.option(form.Flag, 'bssid', _('Require Matching BSSID'), _('Only connect where the BSSID matches <code>%h</code>.').format(bss.bssid));
 				bssid.default = '0';
 			}
 
-			zone = s2.option(widgets.ZoneSelect, 'zone', _('Create / Assign firewall-zone'), _('Choose the firewall zone you want to assign to this interface. Select <em>unspecified</em> to remove the interface from the associated zone or fill out the <em>custom</em> field to define a new zone and attach the interface to it.'));
+			zone = s2.option(widgets.ZoneSelect, 'zone', _('Create/Assign Firewall Zone'), _('Choose the firewall zone to be assigned to this interface. Select <em>unspecified</em> to remove the interface from the associated zone or fill out the <em>custom</em> field to define a new zone and attach the interface to it.'));
 			zone.default = 'wan';
 
 			return m2.render().then(L.bind(function(nodes) {
@@ -2099,7 +2095,7 @@ return view.extend({
 
 			cbi_update_table(table, [], E('em', { 'class': 'spinning' }, _('Collecting data...')))
 
-			return E([ nodes, E('h3', _('Associated Stations')), table ]);
+			return E([ nodes, E('h3', _('Associated Clients')), table ]);
 		}, this, m));
 	}
 });
