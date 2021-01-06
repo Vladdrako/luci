@@ -10,4 +10,4 @@ PKG_LICENSE:=Apache-2.0
 
 include ../../luci.mk
 
-# call BuildPackage - OpenWrt buildroot signatureet
+# call BuildPackage - OpenWrt buildroot signature
