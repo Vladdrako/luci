@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-06-11 21:04+0000\n"
-"Last-Translator: Paul Spooren <mail@aparcar.org>\n"
+"PO-Revision-Date: 2021-02-08 04:46+0000\n"
+"Last-Translator: Zocker1012 <julian.schoemer.1997@gmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsaria2/de/>\n"
 "Language: de\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:430
 msgid "<abbr title=\"Local Peer Discovery\">LPD</abbr> enabled"
@@ -60,7 +60,7 @@ msgstr "BitTorrent-Optionen"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:469
 msgid "BitTorrent listen port"
-msgstr "BitTorrent Listen-Port"
+msgstr "BitTorrent Listening-Port"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:326
 msgid "CA certificate"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:475
 msgid "DHT Listen port"
-msgstr "DHT-Listen-Port"
+msgstr "DHT Listening-Port"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:232
 msgid "Debug"
