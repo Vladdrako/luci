@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-10-21 08:14+0000\n"
-"Last-Translator: malrubaei <mhmd.alrubaei@gmail.com>\n"
+"PO-Revision-Date: 2021-03-03 01:50+0000\n"
+"Last-Translator: Said Zakaria <said.zakaria@gmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsaria2/ar/>\n"
 "Language: ar\n"
@@ -9,7 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.3.1\n"
+"X-Generator: Weblate 4.5\n"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:430
 msgid "<abbr title=\"Local Peer Discovery\">LPD</abbr> enabled"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: applications/luci-app-aria2/root/usr/share/luci/menu.d/luci-app-aria2.json:15
 msgid "Configuration"
-msgstr ""
+msgstr "إعدادات"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:364
 msgid "Connect timeout"
@@ -110,7 +110,7 @@ msgstr ""
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:232
 msgid "Debug"
-msgstr ""
+msgstr "تصحيح الأخطاء"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:556
 msgid ""
@@ -172,7 +172,7 @@ msgstr "مفعل"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:236
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: applications/luci-app-aria2/htdocs/luci-static/resources/view/aria2/config.js:616
 msgid "Extra Settings"
