@@ -182,14 +182,14 @@ return view.extend({
 		 */
 
 		if (L.hasSystemFeature('zram')) {
-			s.tab('zram', _('Zram Settings'));
+			s.tab('zram', _('ZRam Settings'));
 
-			o = s.taboption('zram', form.Value, 'zram_size_mb', _('Zram Size'), _('Size of the zram device in megabytes'));
+			o = s.taboption('zram', form.Value, 'zram_size_mb', _('ZRam Size'), _('Size of the ZRam device in megabytes'));
 			o.optional    = true;
 			o.placeholder = 16;
 			o.datatype    = 'uinteger';
 
-			o = s.taboption('zram', form.ListValue, 'zram_comp_algo', _('Zram Compression Algorithm'));
+			o = s.taboption('zram', form.ListValue, 'zram_comp_algo', _('ZRam Compression Algorithm'));
 			o.optional    = true;
 			o.default     = 'lzo';
 			o.value('lzo', 'lzo');
